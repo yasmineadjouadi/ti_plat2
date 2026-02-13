@@ -2,10 +2,9 @@ import requests
 import os
 from dotenv import load_dotenv
 
-# Charger les variables d'environnement depuis .env
 load_dotenv()
 
-VT_API_KEY = os.getenv("VT_API_KEY")  # Ta clé VirusTotal
+VT_API_KEY = os.getenv("VT_API_KEY") 
 
 def virustotal_hash(hash_value: str):
     """
