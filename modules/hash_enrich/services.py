@@ -7,9 +7,7 @@ load_dotenv()
 VT_API_KEY = os.getenv("VT_API_KEY") 
 
 def virustotal_hash(hash_value: str):
-    """
-    Interroge VirusTotal pour obtenir les informations sur un hash.
-    """
+    
     if not VT_API_KEY:
         return {"error": "VirusTotal API key not found in .env"}
 
