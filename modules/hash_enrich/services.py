@@ -5,9 +5,17 @@ from datetime import datetime
 
 load_dotenv()
 
+
 VT_API_KEY = os.getenv("VT_API_KEY")
 
 OTX_API_KEY = os.getenv("OTX_API_KEY")
+
+
+def virustotal_hash(hash_value: str):
+    
+    if not VT_API_KEY:
+        return {"error": "VirusTotal API key not found in .env"}
+
 
 def calculate_risk(malicious, suspicious, reputation):
 
