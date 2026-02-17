@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scan Result - Threat Intelligence</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #1e293b;
+            display: inline-block;
+            text-align: left;
+        }
+
+        a {
+            color: #60a5fa;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        h3 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Scan Result</h2>
+
+    {% if data %}
+    <div class="result">
+        <p><b>Hash:</b> {{ data.hash }}</p>
+        <p><b>File Type:</b> {{ data.file_type }}</p>
+        <p><b>Reputation Score:</b> {{ data.reputation_score }}</p>
+
+        <h3>Detection Details</h3>
+        <p><b>Malicious:</b> {{ data.detection.malicious }}</p>
+        <p><b>Suspicious:</b> {{ data.detection.suspicious }}</p>
+        <p><b>Undetected:</b> {{ data.detection.undetected }}</p>
+
+        <p><b>Last Analysis Date:</b> {{ data.last_analysis_date }}</p>
+
+        <h3>Risk Evaluation</h3>
+        <p><b>Risk Score:</b> {{ data.risk_score }}</p>
+        <p><b>Risk Level:</b> {{ data.risk_level }}</p>
+
+        <h3>Global Risk</h3>
+        <p><b>Global Risk Score:</b> {{ data.global_risk_score }}</p>
+        <p><b>Global Risk Level:</b> {{ data.global_risk_level }}</p>
+
+        <h3>OTX Intelligence</h3>
+        <p><b>OTX Data:</b> {{ data.otx }}</p>
+
+        <p><b>Confidence:</b> {{ data.confidence }}</p>
+    </div>
+    {% else %}
+        <p style="color:#f87171;">Hash not found or API error</p>
+    {% endif %}
+
+    <br><br>
+    <a href="/dashboard/">Back to Dashboard</a>
+    <a href="/">Home</a>
+
+</body>
+</html>

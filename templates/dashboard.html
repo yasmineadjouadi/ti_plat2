@@ -1,0 +1,38 @@
+<h2>Dashboard</h2>
+
+<p><b>Total scans:</b> {{ total_scans }}</p>
+
+<h3>Risk Levels</h3>
+<ul>
+    <li>High: {{ risk_levels.High }}</li>
+    <li>Medium: {{ risk_levels.Medium }}</li>
+    <li>Low: {{ risk_levels.Low }}</li>
+</ul>
+
+<h3>Scans par source</h3>
+<ul>
+    {% for source, count in by_source.items() %}
+        <li>{{ source }}: {{ count }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Historique des scans</h3>
+<table border="1" style="margin:auto; color:white;">
+    <tr>
+        <th>ID</th>
+        <th>Hash</th>
+        <th>Risk Level</th>
+        <th>Score</th>
+        <th>Source</th>
+    </tr>
+    {% for scan in scans %}
+    <tr>
+        <td>{{ scan.id }}</td>
+        <td>{{ scan.indicator }}</td>
+        <td>{{ scan.risk_level }}</td>
+        <td>{{ scan.risk_score }}</td>
+        <td>{{ scan.source }}</td>
+    </tr>
+    {% endfor %}
+</table>
+

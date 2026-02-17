@@ -2,6 +2,11 @@ import requests
 import os
 from dotenv import load_dotenv
 from datetime import datetime
+from database.db import SessionLocal
+from database.models import ScanHistory
+
+
+
 
 load_dotenv()
 
@@ -122,6 +127,21 @@ def get_hash_report(file_hash):
         else "N/A"
     )
 
+
+    db = SessionLocal()
+
+    new_scan = ScanHistory(
+    indicator=file_hash,
+    risk_level=risk_level,
+    risk_score=risk_score,
+    confidence="High",
+    source="VirusTotal"
+)
+
+
+    db.add(new_scan)
+    db.commit()
+    db.close()
     return {
         "hash": file_hash,
         "file_type": data.get("type_description", "Unknown"),
