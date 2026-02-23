@@ -3,6 +3,8 @@ from fastapi.responses import JSONResponse
 from modules.hash_enrich.services import get_hash_report
 from modules.hash_enrich.router import router as hash_router
 from modules.dashboard.router import router as dashboard_router
+from modules.mail_enrich.router import router as mail_router
+
 from database import models
 from database.db import engine
 
@@ -11,7 +13,7 @@ from database.db import engine
 # ------------------------------
 app = FastAPI(
     title="Threat Intelligence Platform",
-    description="Plateforme pour enrichissement de hash via VirusTotal",
+    description="Plateforme pour enrichissement de hash via VirusTotal et vérification d'emails via MXToolbox",
     version="1.0"
 )
 
@@ -27,6 +29,8 @@ def root():
 # ------------------------------
 app.include_router(hash_router)
 app.include_router(dashboard_router)
+app.include_router(mail_router)
+
 
 # ------------------------------
 # Création des tables

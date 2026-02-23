@@ -112,8 +112,11 @@ def virustotal_hash(file_hash):
                 })
 
     # Related IPs
-    related_ips = []
+    related_ips = [] 
     ip_url = f"https://www.virustotal.com/api/v3/files/{file_hash}/relationships/contacted_ips"
+    
+    related_domains = get_vt_relationships(file_hash, "contacted_domains")
+    related_urls = get_vt_relationships(file_hash, "contacted_urls")
     ip_response = requests.get(ip_url, headers=headers)
     if ip_response.status_code == 200:
         ip_data = ip_response.json().get("data", [])
@@ -129,10 +132,29 @@ def virustotal_hash(file_hash):
         "suspicious": suspicious,
         "undetected": undetected,
         "related_ips": related_ips,
+        "related_domains": related_domains,
+        "related_urls": related_urls,
         "mitre_attack": mitre_attack
     }
 
+def get_vt_relationships(file_hash, relation_type):
+    url = f"https://www.virustotal.com/api/v3/files/{file_hash}/relationships/{relation_type}"
+    headers = {"x-apikey": VT_API_KEY}
 
+    response = requests.get(url, headers=headers)  # <- définir response ici
+
+    results = []
+    if response.status_code == 200:
+        data = response.json().get("data", [])
+        for item in data:
+            attrs = item.get("attributes", {})
+            if relation_type == "contacted_domains":
+                results.append(attrs.get("hostname"))
+            elif relation_type == "contacted_urls":
+                results.append(attrs.get("url"))
+            else:
+                results.append(item.get("id"))
+    return [r for r in results if r] 
 # =========================
 # OTX
 # =========================
@@ -203,6 +225,11 @@ def get_hash_report(file_hash):
             "suspicious": vt_data.get("suspicious"),
             "undetected": vt_data.get("undetected")
         },
+        "relations": {
+            "ips": vt_data.get("related_ips"),
+            "domains": vt_data.get("related_domains"),
+            "urls": vt_data.get("related_urls")
+},
         "otx": otx_data,
         "risk_score": risk_score,
         "risk_level": risk_level,
