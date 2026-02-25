@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Query, HTTPException
-from services.ip_service import check_ip_reputation
-from services.cve_enricher import fetch_cves_by_keyword
+from modules.ip_enrich.services.ip_service import check_ip_reputation
+from modules.ip_enrich.services.cve_enricher import fetch_cves_by_keyword
 import ipaddress
 from sqlalchemy.orm import Session
 from fastapi import Depends
-from database.database import get_db
+from database.db import get_db
 from database.models import IPReputation
 
 router = APIRouter()

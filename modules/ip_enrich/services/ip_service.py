@@ -2,7 +2,7 @@ import requests
 import ipaddress
 import os
 from dotenv import load_dotenv
-from services.cve_enricher import fetch_cves_by_keyword
+from modules.ip_enrich.services.cve_enricher import fetch_cves_by_keyword
 
 load_dotenv()
 

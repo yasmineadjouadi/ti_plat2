@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Query
-from services.domain_service import get_domain_report
+from modules.domain_enrich.services.domain_service import get_domain_report
 from fastapi.responses import JSONResponse
 import json
 
