@@ -77,8 +77,8 @@ def scan_ioc(value: str = Query(..., description="IOC value (IP, Domain, Hash, U
 
     # 2️⃣ IP
     if re.fullmatch(r"\d{1,3}(\.\d{1,3}){3}", value):
-        from modules.ip_enrich.services.ip_service import get_ip_report
-        return check_ip_reputation(value)
+       from modules.ip_enrich.services.ip_service import check_ip_reputation
+       return check_ip_reputation(value)
 
     # 3️⃣ URL
     if value.startswith("http://") or value.startswith("https://"):
