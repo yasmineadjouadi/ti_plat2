@@ -3,10 +3,7 @@ from modules.hash_enrich.services import get_hash_report
 from fastapi.responses import JSONResponse
 import json
 
-router = APIRouter(
-    prefix="/hash",
-    tags=["Hash Enrichment"]
-)
+router = APIRouter()
 
 @router.get("/")
 def hash_lookup(param: str = Query(..., description="Hash value to enrich")):

@@ -9,7 +9,7 @@ from database.models import IPReputation
 
 router = APIRouter()
 
-@router.get("/ip", summary="IP Reputation Check")
+@router.get("/", summary="IP Reputation Check")
 def ip_route(
     param: str = Query(..., description="IPv4 or IPv6 address"),
     db: Session = Depends(get_db)

@@ -3,11 +3,7 @@ from modules.domain_enrich.services.domain_service import get_domain_report
 from fastapi.responses import JSONResponse
 import json
 
-router = APIRouter(
-    prefix="/domain",
-    tags=["Domain Enrichment"]
-)
-
+router = APIRouter()
 @router.get("/")
 def domain_lookup(
     param: str = Query(..., description="Domain name to enrich")
